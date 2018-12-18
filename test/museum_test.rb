@@ -45,6 +45,17 @@ class MuseumTest < Minitest::Test
     assert_equal exhibits, @dmns.exhibits
   end
 
+  def test_it_starts_with_no_patrons
+    assert_equal [], @dmns.patrons
+  end
+
+  def test_it_can_admit_patrons
+    @dmns.admit(@bob)
+    @dmns.admit(@sally)
+
+    assert_equal [@bob, @sally], @dmns.patrons
+  end
+
   def test_it_can_recommend_exhibits
     @dmns.add_exhibit(@gems_and_minerals)
     @dmns.add_exhibit(@dead_sea_scrolls)
@@ -65,5 +76,6 @@ class MuseumTest < Minitest::Test
     assert_equal recommended_for_bob, @dmns.recommend_exhibits(@bob)
     assert_equal recommend_for_sally, @dmns.recommend_exhibits(@sally)
   end
+
 
 end
