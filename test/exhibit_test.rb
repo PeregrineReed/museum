@@ -16,4 +16,8 @@ class ExhibitTest < Minitest::Test
     assert_equal "Gems and Minerals", @exhibit.name
   end
 
+  def test_it_has_a_cost
+    assert_equal 0, @exhibit.cost
+  end
+
 end
