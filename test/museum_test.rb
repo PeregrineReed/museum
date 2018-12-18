@@ -27,4 +27,8 @@ class MuseumTest < Minitest::Test
     assert_equal museum, @dmns.name
   end
 
+  def test_it_starts_with_no_exhibits
+    assert_equal [], @dmns.exhibits
+  end
+
 end
