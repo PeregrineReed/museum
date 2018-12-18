@@ -77,5 +77,23 @@ class MuseumTest < Minitest::Test
     assert_equal recommend_for_sally, @dmns.recommend_exhibits(@sally)
   end
 
+  def test_it_can_list_patrons_by_exhibit_interest
+    @dmns.add_exhibit(@gems_and_minerals)
+    @dmns.add_exhibit(@dead_sea_scrolls)
+    @dmns.add_exhibit(@imax)
+    @bob.add_interest("Dead Sea Scrolls")
+    @bob.add_interest("Gems and Minerals")
+    @sally.add_interest("Dead Sea Scrolls")
+    @dmns.admit(@bob)
+    @dmns.admit(@sally)
 
+    patron_exhibit_interests = {
+      @gems_and_minerals => [@bob],
+      @dead_sea_scrolls => [@bob, @sally],
+      @imax => []
+    }
+
+    assert_equal patron_exhibit_interests, @dmns.patrons_by_exhibit_interest
+  end
+  
 end

@@ -24,4 +24,17 @@ class Museum
     end
   end
 
+  def patrons_by_exhibit_interest
+    exhibit_patrons = {}
+    @exhibits.each do |exhibit|
+      exhibit_patrons[exhibit] = []
+      @patrons.each do |patron|
+        if patron.interests.include?(exhibit.name)
+          exhibit_patrons[exhibit] << patron
+        end
+      end
+    end
+    exhibit_patrons
+  end
+
 end
