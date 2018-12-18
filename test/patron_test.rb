@@ -24,4 +24,13 @@ class PatronTest < Minitest::Test
     assert_equal [], @bob.interests
   end
 
+  def test_it_can_add_interests
+    @bob.add_interest("Dead Sea Scrolls")
+    @bob.add_interest("Gems and Minerals")
+
+    subjects = ["Dead Sea Scrolls", "Gems and Minerals"]
+
+    assert_equal subjects, @bob.interests
+  end
+
 end
