@@ -16,6 +16,11 @@ class Museum
 
   def admit(patron)
     @patrons << patron
+    recommend_exhibits(patron).each do |exhibit|
+      if patron.spending_money > exhibit.cost
+        patron.spending_money -= exhibit.cost
+      end
+    end
   end
 
   def recommend_exhibits(patron)

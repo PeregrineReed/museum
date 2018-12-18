@@ -15,6 +15,7 @@ class MuseumTest < Minitest::Test
 
     @bob = Patron.new("Bob", 20)
     @sally = Patron.new("Sally", 20)
+    @tj = Patron.new("TJ", 7)
   end
 
   def test_it_exists
@@ -95,5 +96,30 @@ class MuseumTest < Minitest::Test
 
     assert_equal patron_exhibit_interests, @dmns.patrons_by_exhibit_interest
   end
-  
+
+  def test_patrons_attend_affordable_exhibits
+    @dmns.add_exhibit(@gems_and_minerals)
+    @dmns.add_exhibit(@imax)
+    @dmns.add_exhibit(@dead_sea_scrolls)
+    @tj.add_interest("IMAX")
+    @tj.add_interest("Dead Sea Scrolls")
+
+    @dmns.admit(@bob)
+    @dmns.admit(@tj)
+
+    assert_equal 7, @tj.spending_money
+  end
+
+  def test_patrons_view_the_most_expensive_exhibit
+    @dmns.add_exhibit(@gems_and_minerals)
+    @dmns.add_exhibit(@imax)
+    @dmns.add_exhibit(@dead_sea_scrolls)
+    @bob.add_interest("Dead Sea Scrolls")
+    @bob.add_interest("IMAX")
+
+    @dmns.admit(@bob)
+    
+    assert_equal 0, @bob.spending_money
+  end
+
 end
